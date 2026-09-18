@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sunghyun Baek</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap">
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #333333;
+    --text-soft: #555555;
+    --text-mute: #808080;
+    --link: #0b6fd4;
+    --link-hover: #0a56a3;
+    --rule: #e6e6e6;
+    --tile: #f4f5f7;
+    --venue: #c0392b;
+    --sans: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17191c;
+      --text: #e4e6e8;
+      --text-soft: #bcc0c5;
+      --text-mute: #8b9097;
+      --link: #63aef5;
+      --link-hover: #8fc7ff;
+      --rule: #2b2f34;
+      --tile: #21252a;
+      --venue: #e8836f;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #17191c;
+    --text: #e4e6e8;
+    --text-soft: #bcc0c5;
+    --text-mute: #8b9097;
+    --link: #63aef5;
+    --link-hover: #8fc7ff;
+    --rule: #2b2f34;
+    --tile: #21252a;
+    --venue: #e8836f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 48px 64px;
+  }
+
+  a { color: var(--link); text-decoration: none; }
+  a:hover { color: var(--link-hover); text-decoration: underline; }
+  a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+
+  /* ---------- profile header ---------- */
+  .profile { display: block; text-align: center; }
+  .profile .links { justify-content: center; }
+
+  .profile h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0 0 22px;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .profile h1 span {
+    font-weight: 300;
+    color: var(--text-mute);
+    font-size: 0.66em;
+    margin-left: 0.35em;
+  }
+  .profile .meta {
+    margin: 0 0 4px;
+    color: var(--text-soft);
+    font-size: 1rem;
+  }
+  .profile .meta strong { color: var(--text); font-weight: 700; }
+  .profile .contact {
+    margin: 12px 0 0;
+    font-size: 0.94rem;
+    color: var(--text-mute);
+  }
+  .profile .links {
+    margin: 14px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    list-style: none;
+    padding: 0;
+  }
+  .profile .links a {
+    display: inline-block;
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 4px 12px;
+    font-size: 0.88rem;
+    color: var(--link);
+  }
+  .profile .links a:hover {
+    text-decoration: none;
+    border-color: var(--link);
+    background: var(--tile);
+  }
+
+  /* ---------- sections ---------- */
+  section { margin-top: 44px; }
+
+  h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin: 0 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  p { margin: 0 0 12px; }
+  p:last-child { margin-bottom: 0; }
+
+  .about p { color: var(--text-soft); max-width: 72ch; }
+
+  ul.plain { list-style: none; margin: 0; padding: 0; }
+
+  ul.interests {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-soft);
+  }
+  ul.interests li { margin-bottom: 4px; }
+  ul.interests b { color: var(--text); font-weight: 700; }
+
+  /* ---------- news ---------- */
+  .news { max-height: 340px; overflow-y: auto; padding-right: 8px; }
+  .news li {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 4px 12px;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--rule);
+    color: var(--text-soft);
+    font-size: 0.95rem;
+  }
+  .news li:last-child { border-bottom: none; }
+  .news .date { color: var(--text-mute); font-size: 0.88rem; white-space: nowrap; }
+  .news em { color: var(--text); font-style: normal; font-weight: 700; }
+
+  /* ---------- publications ---------- */
+  .pubs li {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 6px 22px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+  .pubs li:last-child { border-bottom: none; }
+
+  .teaser {
+    aspect-ratio: 16 / 9;
+    max-width: 100%;
+    background: var(--tile);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+  }
+  .teaser img { width: 100%; height: 100%; object-fit: contain; display: block; border-radius: 2px; }
+  .teaser:has(img) { background: #ffffff; padding: 4px; }
+  .teaser span {
+    color: var(--text-mute);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+  }
+
+  .pub-title { font-weight: 700; color: var(--text); margin: 0 0 4px; line-height: 1.4; }
+  .pub-title code {
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: var(--tile);
+    padding: 0 4px;
+    border-radius: 3px;
+  }
+  .pub-authors { margin: 0 0 4px; color: var(--text-soft); font-size: 0.95rem; }
+  .pub-authors .me { font-weight: 700; color: var(--text); }
+  .pub-authors sup { color: var(--venue); }
+  .pub-venue { margin: 0; color: var(--venue); font-style: italic; font-size: 0.95rem; }
+  .pub-venue .tag { font-style: normal; color: var(--text-mute); }
+  .pub-links { margin: 6px 0 0; font-size: 0.9rem; }
+  .pub-links a { margin-right: 10px; }
+
+  .note { color: var(--text-mute); font-size: 0.88rem; margin-top: 14px; }
+  .note sup { color: var(--venue); }
+
+  /* ---------- education ---------- */
+  .edu li {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    gap: 4px 22px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .edu li:last-child { border-bottom: none; }
+  .edu .when { color: var(--text-mute); font-size: 0.92rem; white-space: nowrap; }
+  .edu .what strong { font-weight: 700; }
+  .edu .what { color: var(--text-soft); }
+  .edu .what .deg { color: var(--text); }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 16px;
+    border-top: 1px solid var(--rule);
+    color: var(--text-mute);
+    font-size: 0.85rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 640px) {
+    .page { padding-block: 32px 48px; }
+    .pubs li, .edu li, .news li { grid-template-columns: 1fr; gap: 8px; }
+    .teaser { max-width: 260px; }
+    .news li { gap: 2px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+
+</head>
+<body>
+<div class="page">
+
+  <header class="profile">
+    <div>
+      <h1>Sunghyun Baek</h1>
+      <ul class="links plain">
+        <li><a href="mailto:sh0805.baek@gmail.com">Email</a></li>
+        <li><a href="https://scholar.google.com/citations?user=3t2Y3xcAAAAJ&amp;hl=ko">Google Scholar</a></li>
+        <li><a href="https://www.linkedin.com/in/sung-hyun-baek-a0b20b350/">LinkedIn</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="about">
+    <h2>About Me</h2>
+    <p>
+      I am a Research Engineer at Samsung Research. I received my Ph.D. in Electrical Engineering from
+      KAIST, where I was advised by Prof. Junmo Kim. During my Ph.D., I worked on efficient AI, including
+      network pruning, token pruning, and test-time adaptation, and on LLM safety, including unlearning and
+      red-teaming. These days I am mainly interested in LLM agents, and more broadly in building AI systems
+      that are efficient, reliable, and practical to deploy.
+    </p>
+  </section>
+
+  <section>
+    <h2>Research Interests</h2>
+    <ul class="interests">
+      <li><b>Machine Learning</b></li>
+      <li><b>Computer Vision</b></li>
+      <li><b>Natural Language Processing</b></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>News</h2>
+    <ul class="news plain">
+      <li><span class="date">Aug. 2026</span><span>Three papers accepted to <em>EMNLP 2026</em> (two Main, one Findings).</span></li>
+      <li><span class="date">May. 2026</span><span>One paper accepted to <em>ICML 2026</em> (Spotlight).</span></li>
+      <li><span class="date">Mar. 2026</span><span>One paper accepted to <em>ACL 2026</em> (Main).</span></li>
+      <li><span class="date">Jan. 2026</span><span>One paper accepted to <em>ICLR 2026</em>.</span></li>
+      <li><span class="date">2025</span><span>One paper accepted to <em>Pattern Analysis and Applications</em>.</span></li>
+      <li><span class="date">2024</span><span>One paper accepted to <em>Knowledge-Based Systems</em>.</span></li>
+      <li><span class="date">2022</span><span>One paper accepted to <em>ICIP 2022</em>.</span></li>
+      <li><span class="date">2021</span><span>One paper accepted to <em>AAAI 2021</em>.</span></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Publications</h2>
+    <ul class="pubs plain">
+
+      <li>
+        <div class="teaser"><img src="images/iwp.jpg" alt="IWP teaser figure"></div>
+        <div>
+          <p class="pub-title">IWP: Token Pruning as Implicit Weight Pruning in Large Vision Language Models</p>
+          <p class="pub-authors">Dongjae Lee<sup>*</sup>, <span class="me">Sunghyun Baek</span><sup>*</sup>, Junmo Kim</p>
+          <p class="pub-venue">EMNLP, 2026 <span class="tag">(Findings)</span></p>
+          <p class="pub-links"><a href="https://arxiv.org/abs/2604.00757">arXiv</a></p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/spurious-cot-termination.jpg" alt="Spurious CoT termination teaser figure"></div>
+        <div>
+          <p class="pub-title"><code>&lt;\think&gt;</code> Doesn't Stop Reasoning: Analysis of Spurious CoT Termination</p>
+          <p class="pub-authors">Seunghee Koh, Sungjae Choi, Minchan Kwon, <span class="me">Sunghyun Baek</span>, Junmo Kim</p>
+          <p class="pub-venue">EMNLP, 2026 <span class="tag">(Main)</span></p>
+          <p class="pub-links"><a href="https://arxiv.org/abs/2609.03633">arXiv</a></p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/direct-diversity-optimization.jpg" alt="Direct Diversity Optimization teaser figure"></div>
+        <div>
+          <p class="pub-title">Direct Diversity Optimization for Diverse Successful Trajectories in Preference Post-Training</p>
+          <p class="pub-authors">Junwon Ko, Dongjae Lee, Minchan Kwon, <span class="me">Sunghyun Baek</span>, Junmo Kim</p>
+          <p class="pub-venue">EMNLP, 2026 <span class="tag">(Main)</span></p>
+          <p class="pub-links"><a href="https://arxiv.org/abs/2609.10052">arXiv</a></p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/stable-gflownet.jpg" alt="Stable-GFlowNet teaser figure"></div>
+        <div>
+          <p class="pub-title">Stable-GFlowNet: Toward Diverse and Robust LLM Red-Teaming via Contrastive Trajectory Balance</p>
+          <p class="pub-authors">Minchan Kwon, <span class="me">Sunghyun Baek</span>, Minseo Kim, Jaemyung Yu, Dongyoon Han, Junmo Kim</p>
+          <p class="pub-venue">ICML, 2026 <span class="tag">(Spotlight, top 2.2%)</span></p>
+          <p class="pub-links"><a href="https://arxiv.org/abs/2605.00553">arXiv</a><a href="https://icml.cc/virtual/2026/poster/64302">ICML page</a></p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/selective-unlearning.jpg" alt="Selective unlearning teaser figure"></div>
+        <div>
+          <p class="pub-title">Forget What Matters, Keep the Rest: Selective Unlearning of Informative Tokens</p>
+          <p class="pub-authors">Seunghee Koh, <span class="me">Sunghyun Baek</span>, Youngdong Kim, Junmo Kim</p>
+          <p class="pub-venue">ACL, 2026 <span class="tag">(Main)</span></p>
+          <p class="pub-links"><a href="https://arxiv.org/abs/2604.17785">arXiv</a><a href="https://aclanthology.org/2026.acl-long.1175/">ACL Anthology</a></p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/imse.jpg" alt="IMSE teaser figure"></div>
+        <div>
+          <p class="pub-title">IMSE: Intrinsic Mixture of Spectral Experts Fine-tuning for Test-Time Adaptation</p>
+          <p class="pub-authors"><span class="me">Sunghyun Baek</span>, Jaemyung Yu, Seunghee Koh, Minsu Kim, Hyeonseong Jeon, Junmo Kim</p>
+          <p class="pub-venue">ICLR, 2026</p>
+          <p class="pub-links"><a href="https://arxiv.org/abs/2603.07926">arXiv</a><a href="https://openreview.net/forum?id=eZO38vANPM">OpenReview</a></p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><span>Random Pruning<br>at Initialization</span></div>
+        <div>
+          <p class="pub-title">Prior knowledge of layer-specific pruning numbers guarantees effective random pruning at initialization</p>
+          <p class="pub-authors">Minju Jung, <span class="me">Sunghyun Baek</span>, Yunho Jeon, Junmo Kim</p>
+          <p class="pub-venue">Pattern Analysis and Applications, 2025</p>
+          <p class="pub-links"><a href="https://link.springer.com/article/10.1007/s10044-025-01574-y">Paper</a></p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/ai-kd.jpg" alt="AI-KD teaser figure"></div>
+        <div>
+          <p class="pub-title">AI-KD: Adversarial learning and Implicit regularization for self-Knowledge Distillation</p>
+          <p class="pub-authors">Hyungmin Kim, Sungho Suh, <span class="me">Sunghyun Baek</span>, Daehwan Kim, Daun Jeong, Hansang Cho, Junmo Kim</p>
+          <p class="pub-venue">Knowledge-Based Systems, 2024</p>
+          <p class="pub-links"><a href="https://arxiv.org/abs/2211.10938">arXiv</a><a href="https://www.sciencedirect.com/science/article/abs/pii/S0950705124003277">Paper</a></p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><span>Pruning<br>Metrics</span></div>
+        <div>
+          <p class="pub-title">Which Metrics for Network Pruning: Final Accuracy? Or Accuracy Drop?</p>
+          <p class="pub-authors">Donggyu Joo, <span class="me">Sunghyun Baek</span>, Junmo Kim</p>
+          <p class="pub-venue">ICIP, 2022</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/linearly-replaceable-filters.jpg" alt="Linearly Replaceable Filters teaser figure"></div>
+        <div>
+          <p class="pub-title">Linearly Replaceable Filters for Deep Network Channel Pruning</p>
+          <p class="pub-authors">Donggyu Joo, Eojindl Yi, <span class="me">Sunghyun Baek</span>, Junmo Kim</p>
+          <p class="pub-venue">AAAI, 2021</p>
+          <p class="pub-links"><a href="https://ojs.aaai.org/index.php/AAAI/article/view/16978">Paper</a><a href="https://github.com/jdg105/linearly-replaceable-filter-pruning">Code</a></p>
+        </div>
+      </li>
+
+    </ul>
+    <p class="note"><sup>*</sup> Equal contribution.</p>
+  </section>
+
+  <section>
+    <h2>Preprints</h2>
+    <ul class="pubs plain">
+
+      <li>
+        <div class="teaser"><img src="images/info3r.jpg" alt="Info3R teaser figure"></div>
+        <div>
+          <p class="pub-title">Info3R: Information Adaptive Test-Time Update in 3D Reconstruction</p>
+          <p class="pub-authors"><span class="me">Sunghyun Baek</span>, Hanna Bae, Minchan Kwon, Junmo Kim</p>
+          <p class="pub-venue">Under review</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/imitation-dominates-reinforcement.jpg" alt="Imitation Dominates Reinforcement teaser figure"></div>
+        <div>
+          <p class="pub-title">Imitation Dominates Reinforcement: Direct In-Context RL Is Closer to ICL Than RL</p>
+          <p class="pub-authors">Minchan Kwon, Seunghee Koh, <span class="me">Sunghyun Baek</span>, Minsung Bae, Junmo Kim</p>
+          <p class="pub-venue">Under review</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/vggt-bridge.jpg" alt="VGGT-Bridge method figure"></div>
+        <div>
+          <p class="pub-title">VGGT-Bridge: Beyond Sequential Pose Graphs via Coarse-Stride Skip Edges</p>
+          <p class="pub-authors">Sungjae Choi, Hanna Bae, <span class="me">Sunghyun Baek</span>, Junmo Kim</p>
+          <p class="pub-venue">Under review</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/supervised-dimension-contrastive-learning.jpg" alt="Supervised Dimension Contrastive Learning method figure"></div>
+        <div>
+          <p class="pub-title">Supervised Dimension Contrastive Learning</p>
+          <p class="pub-authors">Jaemyung Yu, <span class="me">Sunghyun Baek</span>, Jongsuk Kim, Junmo Kim</p>
+          <p class="pub-venue">Under review</p>
+        </div>
+      </li>
+
+      <li>
+        <div class="teaser"><img src="images/dam.jpg" alt="DAM teaser figure"></div>
+        <div>
+          <p class="pub-title">DAM: Domain-Aware Module for Multi-Domain Dataset Condensation</p>
+          <p class="pub-authors">Jaehyun Choi, Gyojin Han, Dongjae Lee, <span class="me">Sunghyun Baek</span>, Junmo Kim</p>
+          <p class="pub-venue">Under review</p>
+          <p class="pub-links"><a href="https://arxiv.org/abs/2505.22387">arXiv</a></p>
+        </div>
+      </li>
+
+    </ul>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <ul class="edu plain">
+      <li>
+        <span class="when">Mar. 2020 – Aug. 2026</span>
+        <span class="what"><strong class="deg">Ph.D. in Electrical Engineering</strong>, KAIST<br>Advisor: Prof. Junmo Kim</span>
+      </li>
+      <li>
+        <span class="when">Mar. 2018 – Feb. 2020</span>
+        <span class="what"><strong class="deg">M.S. in Electrical Engineering</strong>, KAIST<br>Advisors: Prof. Junmo Kim and Prof. Jinwoo Shin</span>
+      </li>
+      <li>
+        <span class="when">Mar. 2014 – Feb. 2018</span>
+        <span class="what"><strong class="deg">B.S. in Electrical Engineering</strong>, Sogang University</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>© 2026 Sunghyun Baek</span>
+    <span>Last updated: September 2026</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
